@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include< malloc.h>
+
 void interschimbareNumereIntregi(int* a, int* b)
 {
 	int temp;
@@ -34,7 +35,7 @@ void main()
 	char sir[4] = "abc";
 	//sir[3] = 0;
 	printf("%s\n", sir);
-	char* sir2 = malloc(4 * sizeof(char));
+	char* sir2 = (char*)malloc(4 * sizeof(char));
 	sir2[0] = 97;
 	sir2[1] = 98;
 	sir2[2] = 99;
