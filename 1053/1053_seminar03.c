@@ -15,14 +15,11 @@ struct Student citireStudent(FILE* streamFisier) {
 	if (streamFisier != NULL)
 	{
 		char buffer[20];
-		fgets(buffer, 20, streamFisier);
-		char* sir = strtok(buffer, "\n");
-		student.nume = (char*)malloc(sizeof(char) * (strlen(sir) + 1));
-		strcpy(student.nume, sir);
-		fgets(buffer, 4, streamFisier);
-		student.varsta = atoi(buffer);
-		fgets(buffer, 10, streamFisier);
-		student.medie = atof(buffer);
+		fscanf(streamFisier, "%19s", buffer);
+		student.nume = (char*)malloc(sizeof(char) * (strlen(buffer) + 1));
+		strcpy(student.nume, buffer);
+        fscanf(streamFisier, "%d", &student.varsta);
+        fscanf(streamFisier, "%f", &student.medie);
 	}
 	return student;
 }
@@ -30,9 +27,7 @@ struct Student citireStudent(FILE* streamFisier) {
 struct Student* citireVectorStudenti(FILE* streamFisier, int* nrStudenti) {
 	if (streamFisier != NULL)
 	{
-		char buffer[10];
-		fgets(buffer, 3, streamFisier);
-		*nrStudenti = atoi(buffer);
+        fscanf(streamFisier, "%d", nrStudenti);
 		struct Student* vectorStudenti = (struct Student*)malloc(sizeof(struct Student) * (*nrStudenti));
 		for (int i = 0; i < (*nrStudenti); i++)
 			vectorStudenti[i] = citireStudent(streamFisier);
@@ -43,9 +38,7 @@ struct Student* citireVectorStudenti(FILE* streamFisier, int* nrStudenti) {
 
 struct Student** citireMatriceStudenti(char* numeFisier, int* nrLinii, int** vectorNrStudentiPeLinie) {
 	FILE* streamFisier = fopen(numeFisier, "r");
-	char buffer[10];
-	fgets(buffer, 10, streamFisier);
-	*nrLinii = atoi(buffer);
+    fscanf(streamFisier, "%d", nrLinii);
 	*vectorNrStudentiPeLinie = (int*)malloc(sizeof(int) * (*nrLinii));
 	struct Student** matriceStudenti = (struct Student**)malloc(sizeof(struct Student*) * (*nrLinii));
 	for (int i = 0; i < (*nrLinii); i++)
@@ -57,17 +50,8 @@ struct Student** citireMatriceStudenti(char* numeFisier, int* nrLinii, int** vec
 
 
 struct Student citireStudentTastatura() {
-	struct Student student;
 	printf("Citire student: ");
-	char buffer[20];
-
-	scanf("%s", &buffer);
-	student.nume = (char*)malloc(sizeof(char) * (strlen(buffer) + 1));
-	strcpy(student.nume, buffer);
-	scanf("%d", &student.varsta);
-	scanf("%f", &student.medie);
-
-	return student;
+    return citireStudent(stdin);
 }
 
 void afisareStudent(struct Student student)

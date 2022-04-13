@@ -14,16 +14,11 @@ struct Masina citireMasinaFisier(FILE* streamFisier) {
 	if (streamFisier != NULL) {
 		struct Masina masina;
 		char aux[30];
-		fgets(aux, 30, streamFisier);
-		char* sir = strtok(aux, "\n");
-		masina.marca = (char*)malloc(sizeof(char) * (strlen(sir) + 1));
-		strcpy(masina.marca, sir);
-
-		fgets(aux, 10, streamFisier);
-		masina.nrkm = atoi(aux);
-
-		fgets(aux, 10, streamFisier);
-		masina.consum = atof(aux);
+        fscanf(streamFisier, "%29s", aux);
+		masina.marca = (char*)malloc(sizeof(char) * (strlen(aux) + 1));
+		strcpy(masina.marca, aux);
+		fscanf(streamFisier, "%d", &masina.nrkm);
+		fscanf(streamFisier, "%f", &masina.consum);
 
 		return masina;
 	}
@@ -31,9 +26,7 @@ struct Masina citireMasinaFisier(FILE* streamFisier) {
 
 struct Masina* citireMasiniFisier(FILE* streamFisier, int* nrMasini) {
 	if (streamFisier != NULL) {
-		char aux[30];
-		fgets(aux, 3, streamFisier);
-		(*nrMasini) = atoi(aux);
+		fscanf(streamFisier, "%d", nrMasini);
 		struct Masina* vectorMasini = (struct Masina*)malloc((*nrMasini) * sizeof(struct Masina));
 		for (int i = 0; i < (*nrMasini); i++) {
 			vectorMasini[i] = citireMasinaFisier(streamFisier);

@@ -25,18 +25,15 @@ void citireVectorFisier(FILE* streamFisier, int* nrElem, int** vector)
 
 struct Student citireStudentFisier(FILE* streamFisier) {
 	struct Student student;
-	if (streamFisier != NULL)
-	{
-		char buffer[20];
-		fgets(buffer, 20, streamFisier);
-		char* sir = strtok(buffer, "\n");
-		student.nume = (char*)malloc(sizeof(char) * (strlen(sir) + 1));
-		strcpy(student.nume, sir);
-		fgets(buffer, 4, streamFisier);
-		student.varsta = atoi(buffer);
-		fgets(buffer, 10, streamFisier);
-		student.medie = atof(buffer);
-	}
+    if (streamFisier != NULL)
+    {
+        char buffer[20];
+        fscanf(streamFisier, "%19s", buffer);
+        student.nume = (char*)malloc(sizeof(char) * (strlen(buffer) + 1));
+        strcpy(student.nume, buffer);
+        fscanf(streamFisier, "%d", &student.varsta);
+        fscanf(streamFisier, "%f", &student.medie);
+    }
 	return student;
 }
 

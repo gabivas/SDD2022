@@ -11,31 +11,24 @@ struct Masina
 	float consum;
 };
 
-struct Masina citireMasinaFisier(FILE* streamFisier)
-{
-	if (streamFisier != NULL)
-	{
-		struct Masina masina;
-		char aux[30];
-		fgets(aux, 30, streamFisier);
-		char* sir = strtok(aux, "\n");
-		masina.marca = (char*)malloc((strlen(sir) + 1) * sizeof(char));
-		strcpy(masina.marca, sir);
-		fgets(aux, 10, streamFisier);
-		masina.nrKm = atoi(aux);
-		fgets(aux, 10, streamFisier);
-		masina.consum = atof(aux);
+struct Masina citireMasinaFisier(FILE* streamFisier) {
+    if (streamFisier != NULL) {
+        struct Masina masina;
+        char aux[30];
+        fscanf(streamFisier, "%29s", aux);
+        masina.marca = (char*)malloc(sizeof(char) * (strlen(aux) + 1));
+        strcpy(masina.marca, aux);
+        fscanf(streamFisier, "%d", &masina.nrKm);
+        fscanf(streamFisier, "%f", &masina.consum);
 
-		return masina;
-	}
+        return masina;
+    }
 }
 struct Masina* citireMasiniFisier(FILE* streamFisier, int* nrMasini)
 {
 	if (streamFisier != NULL)
 	{
-		char aux[30];
-		fgets(aux, 3, streamFisier);
-		*nrMasini = atoi(aux);
+        fscanf(streamFisier, "%d", nrMasini);
 		struct Masina* vectorMasini = (struct Masina*)malloc(sizeof(struct Masina) * (*nrMasini));
 		for (int i = 0; i < *nrMasini; i++)
 		{
@@ -51,9 +44,7 @@ struct Masina** citireMatriceMasiniFisier(char* numeFisier, int* nrLinii, int** 
 	FILE* streamFisier = fopen(numeFisier, "r");
 	if (streamFisier != NULL)
 	{
-		char aux[30];
-		fgets(aux, 5, streamFisier);
-		*nrLinii = atoi(aux);
+        fscanf(streamFisier, "%d", nrLinii);
 		struct Masina** matriceMasini = (struct Masina**)malloc(sizeof(struct Masina*) * (*nrLinii));
 		*vectorNrMasiniPeLinie = (int*)malloc(sizeof(int) * (*nrLinii));
 		for (int i = 0; i < *nrLinii; i++)
@@ -70,9 +61,7 @@ void citireMatriceMasiniFisier2(struct Masina*** matriceMasini, char* numeFisier
 	FILE* streamFisier = fopen(numeFisier, "r");
 	if (streamFisier != NULL)
 	{
-		char aux[30];
-		fgets(aux, 5, streamFisier);
-		*nrLinii = atoi(aux);
+        fscanf(streamFisier, "%d", nrLinii);
 		(*matriceMasini) = (struct Masina**)malloc(sizeof(struct Masina*) * (*nrLinii));
 		*vectorNrMasiniPeLinie = (int*)malloc(sizeof(int) * (*nrLinii));
 		for (int i = 0; i < *nrLinii; i++)
@@ -101,12 +90,8 @@ void afisareMatriceMasini(struct Masina** matriceMasini, int nrLinii, int* vecto
 
 void citireMasinaTastatura(struct Masina* masina)
 {
-	char aux[50];
-	scanf("%s", aux);
-	(*masina).marca = (char*)malloc(sizeof(char) * (strlen(aux) + 1));
-	strcpy((*masina).marca, aux);
-	scanf("%i", &((*masina).nrKm));
-	scanf("%f", &((*masina).consum));
+    printf("Citire masina: ");
+    *masina = citireMasinaFisier(stdin);
 }
 
 void dezalocareMatriceMasini(struct Masina*** matriceMasini, int* nrLinii, int** vectorNrMasiniPeLinie)
