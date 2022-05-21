@@ -76,7 +76,7 @@ void afisarePREORDINE(Nod* rad)
 	}
 }
 
-int main() {
+void main() {
 	Nod* rad = NULL;
 	inserare(&rad, initializareFilm(5, "Batman", 8));
 	inserare(&rad, initializareFilm(3, "Captain America ", 9));
@@ -87,6 +87,4 @@ int main() {
 	afisareINORDINE(rad);
 	printf("\n");
 	afisarePREORDINE(rad);
-
-	return 0;
 }

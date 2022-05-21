@@ -183,14 +183,11 @@ void inserareArboreEchilibrat(Film f, Nod** rad)
 	{
 		if (diferenteInaltimi((*rad)->dreapta) == 1)
 		{
-			//rotire la dreapta pt (*rad)->dreapta
 			rotireDreapta(&(*rad)->dreapta);
-			//rotire la stanga pt tot arborele
 			rotireStanga(rad);
 		}
 		else
 		{
-			//rotire la stanga
 			rotireStanga(rad);
 		}
 	}
@@ -198,14 +195,11 @@ void inserareArboreEchilibrat(Film f, Nod** rad)
 	{
 		if (diferenteInaltimi((*rad)->stanga) == -1)
 		{
-			//rotire la stanga pt (*rad)->stanga
 			rotireStanga(&(*rad)->stanga);
-			//rotire la dreapta pt tot arborele
 			rotireDreapta(rad);
 		}
 		else
 		{
-			//rotire la dreapta
 			rotireDreapta(rad);
 		}
 	}
@@ -214,32 +208,13 @@ void inserareArboreEchilibrat(Film f, Nod** rad)
 void main() {
 
 	Nod* radacina = NULL;
-	/*inserareArbore(initializarefilm(6, "Godfather", 9.9), &radacina);
-	inserareArbore(initializarefilm(8, "Cars", 6.9), &radacina);
-	inserareArbore(initializarefilm(3, "Cars II", 5.9), &radacina);
-	inserareArbore(initializarefilm(4, "Godfather II", 8.9), &radacina);
-	inserareArbore(initializarefilm(9, "Godfather III", 7.5), &radacina);
-	inserareArbore(initializarefilm(2, "Tom & Jerry ", 10), &radacina);
-
-	parcurgereInordine(radacina);
-	printf("\n");
-	parcurgerePreordine(radacina);
-
-	Film f;
-	f = cautare(10, radacina);
-	printf("--------------------\n");
-	afisareFilm(f);
-	free(f.titlu);
-	inserareArbore(initializarefilm(1, "Godfather III", 7.5), &radacina);
-	printf("%d", calculInaltime(radacina));
-	dezalocare(&radacina);
-	parcurgereInordine(radacina);*/
 
 	inserareArboreEchilibrat(initializarefilm(1, "Shrek", 10), &radacina);
 	inserareArboreEchilibrat(initializarefilm(2, "Shrek 2", 9), &radacina);
 	inserareArboreEchilibrat(initializarefilm(3, "Interstellar", 9.5), &radacina);
 	inserareArboreEchilibrat(initializarefilm(4, "Scarface", 9), &radacina);
 	inserareArboreEchilibrat(initializarefilm(5, "Doctor Strange", 9), &radacina);
+
 	parcurgereInordine(radacina);
 
 }
